@@ -1,0 +1,23 @@
+1- CHECK ERRORS	
+
+2- ADD PHILOSOPHERS
+	--> number of philosophers : ft_atoi(argv[1]);
+	--> creat philosophers;()
+
+3- 
+while(time)
+eat (2 forks) print (eating) reload last_time_eat usleep(time to eat) 
+--> leave forks print(sleep) usleep(time to sleep) --> printf(thinking) 
+
+
+1 - 3 - 5 - 7 
+-->
+while (time to eat)
+{
+	printf("philo n has 2 forks ");
+	philo = initial time to die;
+	philo+2;
+
+}
+n++;
+while (time to)
