@@ -6,7 +6,7 @@
 /*   By: akouame <akouame@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:24:39 by akouame           #+#    #+#             */
-/*   Updated: 2022/09/14 21:37:52 by akouame          ###   ########.fr       */
+/*   Updated: 2022/09/15 18:20:39 by akouame          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_pub_news(t_info *new, char **av, t_data *p);
 //	outils.c
 long	ft_time_rn(void);
 void	ft_print(char *str, t_data *p, int id);
-
+void	ft_usleep(long time);
 //	routine.c
 void	ft_eat(t_data *p, int id);
 void	ft_sleep(t_data *p, int id);

@@ -6,7 +6,7 @@
 /*   By: akouame <akouame@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 16:09:54 by akouame           #+#    #+#             */
-/*   Updated: 2022/09/15 14:33:35 by akouame          ###   ########.fr       */
+/*   Updated: 2022/09/15 17:43:37 by akouame          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void	ft_add(t_data *p, t_info *new)
 		// p[i].thread_philo = malloc(sizeof(pthread_t));
 		// printf("lll");
 		pthread_create(&p->thread_philo, NULL, ft_pthread, &p[i]);
+		i++;
 		// printf("mal moke\n");
 		usleep(50);
-		i++;
 	}
 	
 }
@@ -95,7 +95,8 @@ void	ft_pub_news(t_info *new, char **av, t_data *p)
 			// pthread_mutex_unlock(&p->news->print);
 			// pthread_mutex_destroy(p->news->forks);
 		}
-		if (p->news->must_eat == p->news->nb_phi_must)
+
+		if (p->news->nb_philo == p->news->nb_phi_must)
 		{
 			pthread_mutex_lock(&p->news->print);
 			p->news->stop = 1;
