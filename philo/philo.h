@@ -6,7 +6,7 @@
 /*   By: akouame <akouame@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 11:24:39 by akouame           #+#    #+#             */
-/*   Updated: 2022/09/12 17:11:17 by akouame          ###   ########.fr       */
+/*   Updated: 2022/09/14 21:37:52 by akouame          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,50 +19,48 @@
 #include <sys/time.h>
 #include <unistd.h>
 
-
-typedef struct s_global
+typedef struct s_info
 {
-	int					nb_philo;
-	int					ti_die;
-	int					ti_sleep;
-	long long			start;
-	int					ti_eat;
-	int					nb_p_done;
-	int					must_eat;
-	pthread_mutex_t		print;
-	pthread_mutex_t			check;
-	int					stop;
-		
-}	t_global;
+	pthread_mutex_t	print;
+	int				stop;
+	int				nb_philo;
+	int				time_eat;
+	int				time_die;
+	int				time_sleep;
+	int				must_eat;
+	pthread_mutex_t	*forks;
+	int				nb_phi_must;
+}	t_info;
 
-typedef struct s_philosopher
+typedef struct s_data
 {
-	pthread_t				*philo;
-	int						cin;
-	pthread_mutex_t			fork;
-	int						chhal_kla;
-	long long				last_food;
-	t_global				news;
+	pthread_t		thread_philo;
+	int				id;
+	int				nb_food;
+	long			last_eat;
+	t_info			*news;
+	struct s_data	*next;
+	long			start;
 	
-}	t_philosopher;
+}	t_data;
 
-
-//check.c
+//	check.c
 int	ft_check(char **argv);
 
-//fct_lbft
+//	fct_lbft.c
 int	ft_atoi(const char *str);
 
-//initial.c
-void	ft_add(t_global *news, char **av);
+// initial.c
+void	ft_pub_news(t_info *new, char **av, t_data *p);
 
-//outils.c
-long long	ft_time_rn(void);
-void	ft_print(t_philosopher *philo, int cin, char *msg);
-void	ft_stop(t_philosopher **p);
-//routine.c
-void	ft_t_fork(t_philosopher *first, int cin);
-void	ft_eat(t_philosopher *philo, int cin);
-void	ft_sleep(t_philosopher *philo, int cin);
+//	outils.c
+long	ft_time_rn(void);
+void	ft_print(char *str, t_data *p, int id);
+
+//	routine.c
+void	ft_eat(t_data *p, int id);
+void	ft_sleep(t_data *p, int id);
+void	ft_think(t_data *p, int id);
+int	ft_check_stop(t_data *p);
 
 #endif
