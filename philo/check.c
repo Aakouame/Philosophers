@@ -6,7 +6,7 @@
 /*   By: akouame <akouame@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 18:22:30 by akouame           #+#    #+#             */
-/*   Updated: 2022/09/01 14:47:05 by akouame          ###   ########.fr       */
+/*   Updated: 2022/09/16 15:33:56 by akouame          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_check_dig(char *s)
 {
 	int	i;
-	
+
 	i = 0;
 	while (s[i])
 	{
@@ -31,11 +31,11 @@ int	ft_check(char **argv)
 {
 	int	i;
 	int	n;
-	
+
 	i = 1;
 	while (argv[i])
 	{
-		n = ft_atoi(argv[i]); // mazal 5asni nchecki wesh its okey n philos == 1 w chi la5or wesh hanya ikon == 0
+		n = ft_atoi(argv[i]);
 		if (n <= 0 || ft_check_dig(argv[i]) || n > 2147483647)
 			return (-1);
 		i++;

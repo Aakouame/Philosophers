@@ -6,7 +6,7 @@
 /*   By: akouame <akouame@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 00:01:25 by akouame           #+#    #+#             */
-/*   Updated: 2022/09/15 18:20:12 by akouame          ###   ########.fr       */
+/*   Updated: 2022/09/16 15:35:59 by akouame          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 long	ft_time_rn(void)
 {
 	struct timeval	time;
-	long		time_rn;
+	long			time_rn;
 
 	gettimeofday(&time, NULL);
 	time_rn = ((time.tv_sec * 1000) + (time.tv_usec / 1000));
@@ -40,6 +40,6 @@ void	ft_usleep(long time)
 	t = 0;
 	t = ft_time_rn();
 	while ((ft_time_rn() - t) < time)
-		usleep(50);
+		usleep(40);
 	return ;
 }
