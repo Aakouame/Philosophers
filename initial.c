@@ -6,7 +6,7 @@
 /*   By: akouame <akouame@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 16:09:54 by akouame           #+#    #+#             */
-/*   Updated: 2022/09/16 15:34:38 by akouame          ###   ########.fr       */
+/*   Updated: 2022/09/17 21:44:22 by akouame          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	*ft_pthread(void *p)
 	t_data	*philo;
 
 	philo = (t_data *)p;
-	while (philo->news->stop == 0)
+	if (philo->id % 2 != 0)
+		usleep(45);
+	while (1)
 	{
 		ft_eat(philo, philo->id);
 		ft_sleep(philo, philo->id);
@@ -44,31 +46,29 @@ void	ft_add(t_data *p, t_info *new)
 			p[i].next = &p[i + 1];
 		pthread_create(&p->thread_philo, NULL, ft_pthread, &p[i]);
 		i++;
-		usleep(50);
 	}
 }
 
 void	ft_check_stop(t_data *p)
 {
 	while (1)
-	{		
+	{
 		if (p->news->nb_philo == p->news->nb_phi_must)
 		{
 			pthread_mutex_lock(&p->news->print);
-			p->news->stop = 1;
 			return ;
 		}
-		else if ((ft_time_rn() - p->last_eat) >= p->news->time_die)
+		else if ((ft_time_rn() - p->last_eat) > p->news->time_die)
 		{
 			pthread_mutex_lock(&p->news->print);
-			printf("%ld	%d died\n", ft_time_rn() - p->start, p->id + 1);
+			printf("%lld	%d died\n", ft_time_rn() - p->start, p->id + 1);
 			return ;
 		}
 		p = p->next;
 	}
 }
 
-void	ft_add_news(t_info *new, char **av)
+int	ft_add_news(t_info *new, char **av)
 {
 	int		i;
 
@@ -80,26 +80,32 @@ void	ft_add_news(t_info *new, char **av)
 		new->must_eat = ft_atoi(av[5]);
 	else
 		new->must_eat = -1;
-	new->stop = 0;
 	new->nb_phi_must = 0;
-	pthread_mutex_init(&new->print, NULL);
+	if (pthread_mutex_init(&new->print, NULL))
+		return (-1);
 	i = 0;
 	new->forks = malloc(sizeof(pthread_mutex_t) * new->nb_philo);
 	if (!new->forks)
-		return ;
+		return (-1);
 	while (i < new->nb_philo)
 	{
-		pthread_mutex_init(&new->forks[i], NULL);
+		if (pthread_mutex_init(&new->forks[i], NULL))
+			return (-1);
 		i++;
 	}
+	return (0);
 }
 
-void	ft_pub_news(t_info *new, char **av, t_data *p)
+int	ft_pub_news(t_info *new, char **av)
 {
-	ft_add_news(new, av);
+	t_data	*p;
+
+	if (ft_add_news(new, av) == -1)
+		return (-1);
 	p = malloc (sizeof(t_data) * new->nb_philo);
 	if (!p)
-		return ;
+		return (-1);
 	ft_add(p, new);
 	ft_check_stop(p);
+	return (0);
 }

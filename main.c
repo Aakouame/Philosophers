@@ -1,44 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akouame <akouame@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/25 18:22:30 by akouame           #+#    #+#             */
-/*   Updated: 2022/09/16 15:33:56 by akouame          ###   ########.fr       */
+/*   Created: 2022/08/27 11:26:59 by akouame           #+#    #+#             */
+/*   Updated: 2022/09/17 21:45:32 by akouame          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_check_dig(char *s)
+void	ft_destroy(t_info *new)
 {
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (i < new->nb_philo)
 	{
-		if ((s[i] >= '0' && s[i] <= '9'))
-			i++;
-		else
-			return (-1);
+		pthread_mutex_destroy(&new->forks[i]);
+		i++;
 	}
-	return (0);
+	pthread_mutex_destroy(&new->print);
 }
 
-int	ft_check(char **argv)
+int	main(int ac, char **av)
 {
-	int	i;
-	int	n;
+	t_info	new;
 
-	i = 1;
-	while (argv[i])
+	if (ac == 5 || ac == 6)
 	{
-		n = ft_atoi(argv[i]);
-		if (n <= 0 || ft_check_dig(argv[i]) || n > 2147483647)
+		if (ft_check(av))
+		{
+			printf("Error: Check ur inputs !\n");
 			return (-1);
-		i++;
+		}
+		if (ft_pub_news(&new, av) != 0)
+		{
+			printf ("Error: (malloc || mutex)\n");
+			return (-1);
+		}
+		ft_destroy(&new);
+	}
+	else
+	{
+		printf("Error: Check how many arg u write\n");
+		return (-1);
 	}
 	return (0);
 }

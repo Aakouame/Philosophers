@@ -1,49 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akouame <akouame@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/27 11:26:59 by akouame           #+#    #+#             */
-/*   Updated: 2022/09/16 15:35:29 by akouame          ###   ########.fr       */
+/*   Created: 2022/08/25 18:22:30 by akouame           #+#    #+#             */
+/*   Updated: 2022/09/17 17:39:15 by akouame          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_destroy(t_info *new)
+int	ft_check_dig(char *s)
 {
 	int	i;
 
 	i = 0;
-	while (i < new->nb_philo)
+	while (s[i])
 	{
-		pthread_mutex_destroy(&new->forks[i]);
-		i++;
+		if (s[0] == '+')
+			i++;
+		if ((s[i] >= '0' && s[i] <= '9'))
+			i++;
+		else
+			return (-1);
 	}
-	pthread_mutex_destroy(&new->print);
+	return (0);
 }
 
-int	main(int ac, char **av)
+int	ft_check(char **argv)
 {
-	t_info	new;
-	t_data	p;
+	int	i;
+	int	n;
 
-	if (ac == 5 || ac == 6)
+	i = 1;
+	while (argv[i])
 	{
-		if (ft_check(av))
-		{
-			printf("Error: Check ur inputs !\n");
+		n = ft_atoi(argv[i]);
+		if (n <= 0 || ft_check_dig(argv[i]) || n > 2147483647)
 			return (-1);
-		}
-		ft_pub_news(&new, av, &p);
-		ft_destroy(&new);
-	}
-	else
-	{
-		printf("Error: Check how many arg u write\n");
-		return (-1);
+		i++;
 	}
 	return (0);
 }
