@@ -6,7 +6,7 @@
 /*   By: akouame <akouame@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 11:26:59 by akouame           #+#    #+#             */
-/*   Updated: 2022/09/17 21:45:32 by akouame          ###   ########.fr       */
+/*   Updated: 2022/09/18 14:10:02 by akouame          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,19 @@ int	main(int ac, char **av)
 		if (ft_check(av))
 		{
 			printf("Error: Check ur inputs !\n");
-			return (-1);
+			return (1);
 		}
 		if (ft_pub_news(&new, av) != 0)
 		{
 			printf ("Error: (malloc || mutex)\n");
-			return (-1);
+			return (1);
 		}
 		ft_destroy(&new);
 	}
 	else
 	{
 		printf("Error: Check how many arg u write\n");
-		return (-1);
+		return (1);
 	}
 	return (0);
 }

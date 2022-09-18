@@ -6,7 +6,7 @@
 /*   By: akouame <akouame@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 16:09:54 by akouame           #+#    #+#             */
-/*   Updated: 2022/09/18 12:58:40 by akouame          ###   ########.fr       */
+/*   Updated: 2022/09/18 13:58:44 by akouame          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,15 @@ int	ft_add_news(t_info *new, char **av)
 		new->must_eat = -1;
 	new->nb_phi_must = 0;
 	if (pthread_mutex_init(&new->print, NULL))
-		return (-1);
+		return (1);
 	i = 0;
 	new->forks = malloc(sizeof(pthread_mutex_t) * new->nb_philo);
 	if (!new->forks)
-		return (-1);
+		return (1);
 	while (i < new->nb_philo)
 	{
 		if (pthread_mutex_init(&new->forks[i], NULL))
-			return (-1);
+			return (1);
 		i++;
 	}
 	return (0);
@@ -100,11 +100,11 @@ int	ft_pub_news(t_info *new, char **av)
 {
 	t_data	*p;
 
-	if (ft_add_news(new, av) == -1)
-		return (-1);
+	if (ft_add_news(new, av) != 0)
+		return (1);
 	p = malloc (sizeof(t_data) * new->nb_philo);
 	if (!p)
-		return (-1);
+		return (1);
 	ft_add(p, new);
 	ft_check_stop(p);
 	return (0);
