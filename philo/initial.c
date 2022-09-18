@@ -6,7 +6,7 @@
 /*   By: akouame <akouame@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 16:09:54 by akouame           #+#    #+#             */
-/*   Updated: 2022/09/18 13:58:44 by akouame          ###   ########.fr       */
+/*   Updated: 2022/09/18 23:38:04 by akouame          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_pthread(void *p)
 
 	philo = (t_data *)p;
 	if (philo->id % 2 != 0)
-		usleep(45);
+		usleep(55);
 	while (1)
 	{
 		ft_eat(philo, philo->id);
@@ -62,6 +62,7 @@ void	ft_check_stop(t_data *p)
 		{
 			pthread_mutex_lock(&p->news->print);
 			printf("%lld	%d died\n", ft_time_rn() - p->start, p->id + 1);
+			ft_usleep(5);
 			return ;
 		}
 		p = p->next;

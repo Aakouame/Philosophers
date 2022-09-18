@@ -6,7 +6,7 @@
 /*   By: akouame <akouame@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 00:01:25 by akouame           #+#    #+#             */
-/*   Updated: 2022/09/17 18:02:50 by akouame          ###   ########.fr       */
+/*   Updated: 2022/09/18 23:35:42 by akouame          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ void	ft_usleep(long long time)
 	long long	t;
 
 	t = time + ft_time_rn();
-	while (ft_time_rn() < t)
-		usleep(50);
+	while (ft_time_rn() <= t)
+		usleep(100);
 }
