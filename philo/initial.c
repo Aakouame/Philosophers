@@ -6,7 +6,7 @@
 /*   By: akouame <akouame@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 16:09:54 by akouame           #+#    #+#             */
-/*   Updated: 2022/09/19 16:04:20 by akouame          ###   ########.fr       */
+/*   Updated: 2022/09/20 21:28:24 by akouame          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_pthread(void *p)
 
 	philo = (t_data *)p;
 	if (philo->id % 2 != 0)
-		usleep(55);
+		usleep(50);
 	while (1)
 	{
 		ft_eat(philo, philo->id);
@@ -56,12 +56,13 @@ void	ft_check_stop(t_data *p)
 		if (p->news->nb_philo == p->news->nb_phi_must)
 		{
 			pthread_mutex_lock(&p->news->print);
+			ft_usleep(5);
 			return ;
 		}
 		else if ((ft_time_rn() - p->last_eat) > p->news->time_die)
 		{
 			pthread_mutex_lock(&p->news->print);
-			printf("%lld	%d died\n", ft_time_rn() - p->start, p->id + 1);
+			printf("%lld	%d dead\n", ft_time_rn() - p->start, p->id + 1);
 			ft_usleep(5);
 			return ;
 		}
